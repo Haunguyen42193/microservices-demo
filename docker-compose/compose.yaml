@@ -57,7 +57,7 @@ services:
       - 'MYSQL_PASSWORD=secret'
       - 'MYSQL_ROOT_PASSWORD=0979620120@Hau'
     ports:
-      - '3307:3306'
+      - '3306:3306'
     networks:
       - my-network
 volumes:
