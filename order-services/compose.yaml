@@ -1,0 +1,24 @@
+#services:
+#  mysql:
+#    image: 'mysql:latest'
+#    environment:
+#      - 'MYSQL_DATABASE=order-service'
+#      - 'MYSQL_PASSWORD=0979620120@Hau'
+#      - 'MYSQL_ROOT_PASSWORD=0979620120@Hau'
+#      - 'MYSQL_USER=myuser'
+#    ports:
+#      - '3306'
+#version: '3'
+#services:
+#  spring-app:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - my-network
+#
+#networks:
+#  my-network:
+#    external: true

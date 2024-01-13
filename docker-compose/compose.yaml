@@ -1,0 +1,69 @@
+version: '2'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    restart: always
+    ports:
+    - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    container_name: demo-kafka
+    restart: always
+    ports:
+    - "9092:9092"
+    links:
+    - zookeeper:zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "test_topic:1:3"
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    container_name: demo_rabbitmq
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+  redis:
+    image: redis:latest
+    container_name: demo-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data/lib/redis
+    networks:
+      - my-network
+  redis_insight:
+    image: redislabs/redisinsight:latest
+    container_name: demo_redis_insight
+    restart: always
+    ports:
+      - 8001:8001
+    environment:
+      - REDIS_HOSTS=demo-redis:6379
+    volumes:
+      - redis_insight_data:/data/lib/redis_insight_data
+    networks:
+      - my-network
+  mysql:
+    image: 'mysql:latest'
+    container_name: 'demo-mysql'
+    restart: always
+    environment:
+      - 'MYSQL_DATABASE=product-service'
+      - 'MYSQL_PASSWORD=secret'
+      - 'MYSQL_ROOT_PASSWORD=0979620120@Hau'
+    ports:
+      - '3307:3306'
+    networks:
+      - my-network
+volumes:
+  rabbitmq_data:
+  redis_data:
+  redis_insight_data:
+networks:
+  my-network:
+    external: true

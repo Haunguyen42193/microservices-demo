@@ -1,0 +1,13 @@
+#services:
+#  product-services-app:
+#    build:
+#      context: E:\ACB\Springboot\product-services
+#    container_name: 'demo-prod-service'
+#    ports:
+#      - "8081:8080"
+#    networks:
+#      - my-network
+#
+#networks:
+#  my-network:
+#    external: true
